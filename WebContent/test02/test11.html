@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+<meta charset="utf-8" />
+<title>JQuery</title>
+</head>
+
+<body>
+	<div id="data">여기에 데이터 표시</div>
+	<button>불러오기</button>
+	<br> 요청결과:
+	<div id="text"></div>
+	<hr>
+	응답내용:
+	<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+		integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+		crossorigin="anonymous"></script>
+	<script>
+        $(document).ready(function () {
+            $("button").click(function () {
+                $.ajax({
+                    url: "cd_catalog.json", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+                    //data: { name: "홍길동" },  // HTTP 요청과 함께 서버로 보낼 데이터
+                    method: "GET",   // HTTP 요청 메서드(GET, POST 등)
+                    dataType: "json", // 서버에서 보내줄 데이터의 타입
+                    success: function(json){
+                    	txt = '';
+                        for(i = 0; i < json.CATALOG.CD.length; i++){
+                            txt = txt + json.CATALOG.CD[i].ARTIST + "<br>";
+                        }
+                        $("<div class=\"content\">").html(txt).appendTo("body");
+                    }
+                });           
+        	});
+        });
+    </script>
+</body>
+
+</html>
